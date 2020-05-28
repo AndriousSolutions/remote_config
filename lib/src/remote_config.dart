@@ -33,6 +33,7 @@ export 'package:firebase_remote_config/firebase_remote_config.dart'
     show LastFetchStatus, RemoteConfigSettings, RemoteConfigValue;
 
 class RemoteConfig {
+  /// Contstructor takes in default values
   RemoteConfig({
     String key,
     Map<String, dynamic> defaults,
@@ -52,18 +53,22 @@ class RemoteConfig {
 
   StringCrypt _crypto;
 
+  /// Indicates if initialized correctly.
   bool get isInit => _init;
   bool _init = false;
 
-  static const INIT_ERROR =
+  static const _INIT_ERROR =
       "Class RemoteConfig: Call init() before other functions and getters.";
 
+  /// Indicates if activated.
   bool get activated => _activated;
   bool _activated = false;
 
+  /// References an instance of the underlying Firebase Remote Config plugin.
   r.RemoteConfig get instance => _remoteConfig;
   r.RemoteConfig _remoteConfig;
 
+  /// Initializes the Firebase Remote Config plugin.
   Future<bool> initAsync() async {
     // Already called.
     if (_init) return _init;
@@ -103,90 +108,107 @@ class RemoteConfig {
     return _init;
   }
 
+  /// Cleans up the Firebase Remote Config plugin.
   @mustCallSuper
   void dispose() => _remoteConfig?.dispose();
 
+  /// Returns the last time a Remote Config value was retrieved.
   DateTime get lastFetchTime {
-    assert(_remoteConfig != null, INIT_ERROR);
+    assert(_remoteConfig != null, _INIT_ERROR);
     return _remoteConfig?.lastFetchTime;
   }
 
+  /// Returns the status of the last attempt to fetch Remote Config value.
   r.LastFetchStatus get lastFetchStatus {
-    assert(_remoteConfig != null, INIT_ERROR);
+    assert(_remoteConfig != null, _INIT_ERROR);
     return _remoteConfig?.lastFetchStatus;
   }
 
+  /// Returns the current Remote Config settings.
   r.RemoteConfigSettings get remoteConfigSettings {
-    assert(_remoteConfig != null, INIT_ERROR);
+    assert(_remoteConfig != null, _INIT_ERROR);
     return _remoteConfig?.remoteConfigSettings;
   }
 
+  /// Sets the Remote Config settings.
   Future<void> setConfigSettings(r.RemoteConfigSettings remoteConfigSettings) {
-    assert(_remoteConfig != null, INIT_ERROR);
+    assert(_remoteConfig != null, _INIT_ERROR);
     return _remoteConfig?.setConfigSettings(remoteConfigSettings);
   }
 
-  // Set the default values
+  /// Set the default Firebase Remote Config values
   Future<void> setDefaults(Map<String, dynamic> defaults) async {
     if (defaults != null) {
-      assert(_remoteConfig != null, INIT_ERROR);
+      assert(_remoteConfig != null, _INIT_ERROR);
       await _remoteConfig?.setDefaults(defaults);
     }
   }
 
+  /// Returns a String value from Firebase Remote Config.
   String getString(String key) {
-    assert(_remoteConfig != null, INIT_ERROR);
+    assert(_remoteConfig != null, _INIT_ERROR);
     return _remoteConfig?.getString(key);
   }
 
+  /// Returns a decrypted String value from Firebase Remote Config.
   Future<String> getStringed(String param, [String key]) async {
-    assert(_remoteConfig != null, INIT_ERROR);
+    assert(_remoteConfig != null, _INIT_ERROR);
     param = _remoteConfig?.getString(param);
     String string = await _crypto.de(param, key);
     if (_crypto.hasError) getError(_crypto.getError());
     return string;
   }
 
+  /// Returns an integer value from Firebase Remote Config.
   int getInt(String key) {
-    assert(_remoteConfig != null, INIT_ERROR);
+    assert(_remoteConfig != null, _INIT_ERROR);
     return _remoteConfig?.getInt(key);
   }
 
+  /// Returns an double value from Firebase Remote Config.
   double getDouble(String key) {
-    assert(_remoteConfig != null, INIT_ERROR);
+    assert(_remoteConfig != null, _INIT_ERROR);
     return _remoteConfig?.getDouble(key);
   }
 
+  /// Returns an boolean value from Firebase Remote Config.
   bool getBool(String key) {
-    assert(_remoteConfig != null, INIT_ERROR);
+    assert(_remoteConfig != null, _INIT_ERROR);
     return _remoteConfig?.getBool(key);
   }
 
+  /// Returns an 'Remote Config' value from Firebase Remote Config.
   r.RemoteConfigValue getValue(String key) {
-    assert(_remoteConfig != null, INIT_ERROR);
+    assert(_remoteConfig != null, _INIT_ERROR);
     return _remoteConfig?.getValue(key);
   }
 
+  /// Returns all the 'Remote Config' values from Firebase Remote Config.
   Map<String, r.RemoteConfigValue> getAll() {
-    assert(_remoteConfig != null, INIT_ERROR);
+    assert(_remoteConfig != null, _INIT_ERROR);
     return _remoteConfig?.getAll();
   }
 
+  /// Add a listener to trigger when a Firebase Remote Config value is changed.
   void addListener(VoidCallback listener) {
-    assert(_remoteConfig != null, INIT_ERROR);
+    assert(_remoteConfig != null, _INIT_ERROR);
     _remoteConfig?.addListener(listener);
   }
 
+  /// Remove a specified listener
   void removeListener(VoidCallback listener) {
-    assert(_remoteConfig != null, INIT_ERROR);
+    assert(_remoteConfig != null, _INIT_ERROR);
     _remoteConfig?.removeListener(listener);
   }
 
+  /// Indicates if an error has occurred or not.
   bool get hasError => _error != null;
 
+  /// Indicates if an error has occurred or not.
   bool get inError => _error != null;
   Object _error;
 
+  /// Returns the last error that may occurred. Records an error as well.
   Exception getError([Object error]) {
     // Return the stored exception
     Exception ex = _error;

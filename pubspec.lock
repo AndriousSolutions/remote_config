@@ -63,7 +63,7 @@ packages:
       name: firebase_remote_config
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.0+3"
+    version: "0.3.1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -108,7 +108,7 @@ packages:
       name: package_info
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.0+17"
+    version: "0.4.0+18"
   path:
     dependency: transitive
     description:
