@@ -1,6 +1,21 @@
 # Remote Config Uitility Class
 RemoteConfig is a wrapper class that works with the plugin, [firebase_remote_config](https://pub.dev/packages/firebase_remote_config), which in turn, uses the [Firebase Remote Config API](https://firebase.google.com/products/remote-config/) to communicate with the Remote Config cloud service offered to all Firebase projects.
 
+**Installing**
+I don't always like the version number suggested in the '[Installing](https://pub.dev/packages/mvc_application#-installing-tab-)' page.
+Instead, always go up to the '**major**' semantic version number when installing my library packages. This means always entering a version number trailing with two zero, '**.0.0**'. This allows you to take in any '**minor**' versions introducing new features as well as any '**patch**' versions that involves bugfixes. Semantic version numbers are always in this format: **major.minor.patch**. 
+
+1. **patch** - I've made bugfixes
+2. **minor** - I've introduced new features
+3. **major** - I've essentially made a new app. It's broken backwards-compatibility and has a completely new user experience. You won't get this version until you increment the **major** number in the pubspec.yaml file.
+
+And so, in this case, add this to your package's pubspec.yaml file instead:
+```javascript
+dependencies:
+   remote_config: ^1.0.0
+```
+For more information on version numbers: [The importance of semantic versioning](https://medium.com/@xabaras/the-importance-of-semantic-versioning-9b78e8e59bba).
+
 ## Firebase Console
 When you go to your [Firebase console](https://console.firebase.google.com/?pli=1) in your own Firebase project, there's an option on the left-hand side called, *Remote Config*. Traditionally, Remote Config is used to store server-side default values to control the behavior and appearance of your app. This library package makes doing so that much easier for a Flutter developer.
 
