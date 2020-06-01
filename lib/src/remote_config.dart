@@ -33,7 +33,7 @@ export 'package:firebase_remote_config/firebase_remote_config.dart'
     show LastFetchStatus, RemoteConfigSettings, RemoteConfigValue;
 
 class RemoteConfig {
-  /// Contstructor takes in default values
+  /// Constructor takes in default values
   RemoteConfig({
     String key,
     Map<String, dynamic> defaults,
@@ -143,6 +143,9 @@ class RemoteConfig {
       await _remoteConfig?.setDefaults(defaults);
     }
   }
+
+  /// Return encrypted String
+  Future<String> en(String data, [String key]) => _crypto.en(data, key);
 
   /// Returns a String value from Firebase Remote Config.
   String getString(String key) {

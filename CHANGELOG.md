@@ -1,3 +1,7 @@
+## 1.1.0
+ June 01, 2020
+- Future<String> en(String data, [String key]);
+
 ## 1.0.2
  May 28, 2020
 - Updated README.md.

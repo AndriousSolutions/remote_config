@@ -1,8 +1,8 @@
 # Remote Config Uitility Class
 RemoteConfig is a wrapper class that works with the plugin, [firebase_remote_config](https://pub.dev/packages/firebase_remote_config), which in turn, uses the [Firebase Remote Config API](https://firebase.google.com/products/remote-config/) to communicate with the Remote Config cloud service offered to all Firebase projects.
 
-**Installing**
-I don't always like the version number suggested in the '[Installing](https://pub.dev/packages/mvc_application#-installing-tab-)' page.
+### Installing
+I don't always like the version number suggested in the '[Installing](https://pub.dev/packages/remote_config#-installing-tab-)' page.
 Instead, always go up to the '**major**' semantic version number when installing my library packages. This means always entering a version number trailing with two zero, '**.0.0**'. This allows you to take in any '**minor**' versions introducing new features as well as any '**patch**' versions that involves bugfixes. Semantic version numbers are always in this format: **major.minor.patch**. 
 
 1. **patch** - I've made bugfixes
@@ -53,6 +53,7 @@ As you know by now, throughout the class and accompanying ever **try-catch** sta
 ![getError](https://user-images.githubusercontent.com/32497443/83066510-c73dad00-a02a-11ea-8870-2314bd3a3e85.png)
 ## Decrypt The Encrypted
 With this Remote Config routine, I had a need for the use of Cryptography. As it happens, that's what the getStringed() function is for-to decrypt the Remote Config values. Of course, using your favourite IDE and breakpoints, you'll have to first encrypt those values and store them up there in your own Remote Config the first place. And so, there is a StringCrypt class for you to do this, and it's listed below. It works with another popular plugin called, *flutter_string_encryption.dart*, using the class, **PlatformStringCryptor**().
+
 Again, like the Remote Config routine, this class doesn't store it's three parameters in class properties but instead takes them into private variables. You can also see its plugin is initialized in the constructor. Lastly, instead of explicitly providing the plugin a key parameter, you can instead provide a password and 'salt' to generate the key. Such keys are required to generate encryption.
 The 'salt' parameter is an additional string that accompanies the password when generating a key for encryption and decryption. It's an additional safeguard in case the password is ever compromised. It's 'one more component' needed if a bad guy wants its access.
 ![StringCrypt](https://user-images.githubusercontent.com/32497443/83066917-65317780-a02b-11ea-90a6-2432fe9abac9.png)
