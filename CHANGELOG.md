@@ -1,3 +1,7 @@
+## 1.1.1
+ June 04, 2020
+- Corrected Apache Licence 
+
 ## 1.1.0
  June 01, 2020
 - Future<String> en(String data, [String key]);
