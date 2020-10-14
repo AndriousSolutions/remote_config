@@ -1,7 +1,7 @@
 name: remote_config
 description: Works with Flutter Remote Config plugin to retrieve an array of values from a typical Firebase project's Remote Config settings.
 
-version: 1.1.1
+version: 1.2.0
 
 homepage: https://github.com/AndriousSolutions/remote_config
 repository: https://github.com/AndriousSolutions/remote_config
@@ -17,7 +17,7 @@ dependencies:
   package_info: ^0.4.0
 
   # https://pub.dev/packages/firebase_remote_config
-  firebase_remote_config: ^0.3.0
+  firebase_remote_config: ^0.4.0
 
   # https://pub.dev/packages/flutter_string_encryption
   flutter_string_encryption: ^0.3.0

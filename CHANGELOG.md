@@ -1,3 +1,7 @@
+## 1.2.0
+ October 14, 2020
+- Updated plugin, firebase_remote_config, to ^0.4.0 
+
 ## 1.1.1
  June 04, 2020
 - Corrected Apache Licence 
