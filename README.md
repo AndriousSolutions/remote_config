@@ -1,4 +1,4 @@
-# Remote Config Uitility Class
+# Remote Config Utility Class
 RemoteConfig is a wrapper class that works with the plugin, [firebase_remote_config](https://pub.dev/packages/firebase_remote_config), which in turn, uses the [Firebase Remote Config API](https://firebase.google.com/products/remote-config/) to communicate with the Remote Config cloud service offered to all Firebase projects.
 
 ### Installing
