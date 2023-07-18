@@ -1,3 +1,11 @@
+
+## 1.3.0
+ July 17, 2023
+- sdk: '>=2.18.0 <4.0.0'
+- class RemoteConfig with ChangeNotifier
+- Removed assert(_remoteConfig != null, _INIT_ERROR);
+- Future<void> changed to Future<bool> testing _remoteConfig? is null
+
 ## 1.2.0
  October 14, 2020
 - Updated plugin, firebase_remote_config, to ^0.4.0 
