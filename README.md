@@ -3,7 +3,7 @@ RemoteConfig is a wrapper class that works with the plugin, [firebase_remote_con
 
 ### Installing
 I don't always like the version number suggested in the '[Installing](https://pub.dev/packages/remote_config#-installing-tab-)' page.
-Instead, always go up to the '**major**' semantic version number when installing my library packages. This means always entering a version number trailing with two zero, '**.0.0**'. This allows you to take in any '**minor**' versions introducing new features as well as any '**patch**' versions that involves bugfixes. Semantic version numbers are always in this format: **major.minor.patch**. 
+Instead, always go up to the '**minor**' semantic version number when installing my library packages. This means always entering a version number trailing with one zero, '**.0**'. This allows you to take in any '**patch**' versions that involves bugfixes. Semantic version numbers are always in this format: **major.minor.patch**. 
 
 1. **patch** - I've made bugfixes
 2. **minor** - I've introduced new features
@@ -12,7 +12,7 @@ Instead, always go up to the '**major**' semantic version number when installing
 And so, in this case, add this to your package's pubspec.yaml file instead:
 ```javascript
 dependencies:
-   remote_config: ^1.0.0
+   remote_config: ^1.3.0
 ```
 For more information on version numbers: [The importance of semantic versioning](https://medium.com/@xabaras/the-importance-of-semantic-versioning-9b78e8e59bba).
 
@@ -36,12 +36,12 @@ A further note in the constructor, I explicitly test the parameters if they're a
 ![Constructor](https://user-images.githubusercontent.com/32497443/83061464-a3766900-a022-11ea-9d16-4b5a90c360db.png)
 The next stretch of code lists the private variables and the getters used in this routine. The one of note, is the getter, _instance_, as it's a reference to the underlying Remote Config plugin itself. You likely won't need to reference it directly, but it's an option. 
 ![variables](https://user-images.githubusercontent.com/32497443/83062397-277d2080-a024-11ea-9242-594dbdb51e85.png)
-## Init Your Remote
-The next stretch of code is the **init**() function. I decided to have a separate **init**() function in this routine so to remind any developer using this class to not only call the **init**() function to initialize things but to also call its corresponding **dispose**() function to then 'clean things up.' In the screenshot of the **init**() function below you can see it's there where the Remote Config plugin is actually initialized. Further, any default values passed to the routine are then assigned to the plugin. Finally, it is there where the plugin's **fetch**() function is called to 'fetch' the parameter values stored in the Remote Config.
-You'll notice an encryption key is conceived in the **init**() function as well. Encryption and Decryption your remote values is an option available to you when using this class. If this key was not explicitly passed to this function, the package name of your app is used to look up a possible key in Remote Config.
+## Init Your Remote
+The next stretch of code is the **initAsync**() function. I decided to have a separate **initAsync**() function in this routine so to remind any developer using this class to not only call the **initAsync**() function to initialize things but to also call its corresponding **dispose**() function to then 'clean things up.' In the screenshot of the **initAsync**() function below you can see it's there where the Remote Config plugin is actually initialized. Further, any default values passed to the routine are then assigned to the plugin. Finally, it is there where the plugin's **fetch**() function is called to 'fetch' the parameter values stored in the Remote Config.
+You'll notice an encryption key is conceived in the **initAsync**() function as well. Encryption and Decryption your remote values is an option available to you when using this class. If this key was not explicitly passed to this function, the package name of your app is used to look up a possible key in Remote Config.
 ![Init](https://user-images.githubusercontent.com/32497443/83065877-d4a66780-a029-11ea-9f81-c22b1fabc75a.png)
-Further note, the whole operation in the **init**() function is enclosed in a try-catch statement and any exceptions recorded. Any such utility class should record any and all exceptions. Lastly, a boolean value of true is returned if everything goes successfully.
-The next stretch of code will mirror the properties and functions found in the plugin itself. Again, being a utility class - made available for public use, you have to ensure the routine is used properly. In this case, the **init**() function has to be called before you can do anything else, and that's what the series of **assert**() functions you see below are for. If the developer forgets to call the **init**() function, they'll know it if they try to work with the routine any further.
+Further note, the whole operation in the **initAsync**() function is enclosed in a try-catch statement and any exceptions recorded. Any such utility class should record any and all exceptions. Lastly, a boolean value of true is returned if everything goes successfully.
+The next stretch of code will mirror the properties and functions found in the plugin itself. Again, being a utility class - made available for public use, you have to ensure the routine is used properly. In this case, the **initAsync**() function has to be called before you can do anything else, and that's what the series of **assert**() functions you see below are for. If the developer forgets to call the **initAsync**() function, they'll know it if they try to work with the routine any further.
 ![mirrorPlugin](https://user-images.githubusercontent.com/32497443/83066083-20591100-a02a-11ea-8f2d-857da87cadcd.png)
 What follows in the next bit of code is what you'll be using most often. You'll supply the appropriate key-value and retrieve parameter values from Firebase's Remote Config using the following functions. The **getStringed**() function is found here. Note, its role is to involve decryption in your value retreval. More on that later.
 ![setDefaults](https://user-images.githubusercontent.com/32497443/83066228-55fdfa00-a02a-11ea-8635-37f0d0415dc8.png)
@@ -73,6 +73,6 @@ Taking a peek at the class library, *RemoteConfig*, we can see the function call
 It's an abbreviation form of the function, **decrypt**(), which in turn, calls this other function to perform the actual decryption. A screenshot of these functions is displayed below. Of course, it's not recommended you store such sensitive information in Google's cloud service.
 ![Decrypt](https://user-images.githubusercontent.com/32497443/83060982-e08e2b80-a021-11ea-879d-d44e55e38bb0.png)
 
-This utility class, *RemoteConfig*, was written up out of necessity - I needed to work with Firebase's Remote Config service. I've supplied this class and the StringCrypt class to our fledgling Flutter community.
+This utility class, *RemoteConfig*, was written up out of necessity-I needed to work with Firebase's Remote Config service. I've supplied this class and the StringCrypt class to our fledgling Flutter community.
 
 Cheers.
