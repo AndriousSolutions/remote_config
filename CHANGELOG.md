@@ -1,10 +1,11 @@
 
-## 1.3.0+2
+## 1.3.0+3
  July 17, 2023
 - sdk: '>=2.18.0 <4.0.0'
 - class RemoteConfig with ChangeNotifier
 - Removed assert(_remoteConfig != null, _INIT_ERROR);
 - Future<void> changed to Future<bool> testing _remoteConfig? is null
+- false_secrets in pubspec.yaml
 - Update README.md
 
 ## 1.2.0
