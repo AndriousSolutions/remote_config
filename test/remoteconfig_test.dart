@@ -1,7 +1,4 @@
-import 'package:flutter_test/flutter_test.dart';
+/// Calls the example app's very own test
+import '../example/test/widget_test.dart' as t;
 
-import 'package:remote_config/remote_config.dart';
-
-void main() {
-  test('empty test', () {});
-}
+void main() => t.main();

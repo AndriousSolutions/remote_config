@@ -18,6 +18,9 @@ void main() {
   runApp(const MyApp());
 }
 
+/// High-level variable
+late RemoteConfig hRemoteConfig;
+
 ///
 class MyApp extends StatelessWidget {
   ///
@@ -27,27 +30,60 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) => MaterialApp(
         title: 'Remote Config Example',
         home: FutureBuilder<RemoteConfig>(
-          future: setupRemoteConfig(),
-          builder:
-              (BuildContext context, AsyncSnapshot<RemoteConfig> snapshot) {
-            return snapshot.hasData
-                ? WelcomeWidget(remoteConfig: snapshot.requireData)
-                : const SizedBox();
+          future: _setupRemoteConfig(),
+          builder: (_, AsyncSnapshot<RemoteConfig> snapshot) {
+            Widget widget;
+            if (snapshot.hasData) {
+              widget = WelcomeWidget();
+            } else {
+              widget = const SizedBox();
+            }
+            return widget;
           },
         ),
       );
 }
 
 ///
+Future<RemoteConfig> _setupRemoteConfig() async {
+  //
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+        apiKey: 'AIzaSyAgUhHU8wSJgO5MVNy95tMT07NEjzMOfz0',
+        authDomain: 'react-native-firebase-testing.firebaseapp.com',
+        databaseURL: 'https://react-native-firebase-testing.firebaseio.com',
+        projectId: 'react-native-firebase-testing',
+        storageBucket: 'react-native-firebase-testing.appspot.com',
+        messagingSenderId: '448618578101',
+        appId: '1:448618578101:web:772d484dc9eb15e9ac3efc',
+        measurementId: 'G-0N1G9FLDZE'),
+  );
+
+  hRemoteConfig = RemoteConfig(fetchTimeout: 10, minimumFetchInterval: 1);
+  // FirebasehRemoteConfig.instance;
+
+  // Essential to call initAsync()
+  await hRemoteConfig.initAsync();
+
+  // This does the same thing as above in the constructor.
+  await hRemoteConfig.setConfigSettings(RemoteConfigSettings(
+    fetchTimeout: const Duration(seconds: 10),
+    minimumFetchInterval: const Duration(hours: 1),
+  ));
+
+  await hRemoteConfig.setDefaults(<String, dynamic>{
+    'welcome': 'default welcome',
+    'hello': 'default hello',
+  });
+  return hRemoteConfig;
+}
+
+///
 class WelcomeWidget extends AnimatedWidget {
   ///
-  const WelcomeWidget({
+  WelcomeWidget({
     super.key,
-    required this.remoteConfig,
-  }) : super(listenable: remoteConfig);
-
-  ///
-  final RemoteConfig remoteConfig;
+  }) : super(listenable: hRemoteConfig);
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -58,34 +94,34 @@ class WelcomeWidget extends AnimatedWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(remoteConfig.getString('welcome')),
+              Text(hRemoteConfig.getString('welcome')),
               const SizedBox(
                 height: 20,
               ),
               const Text('Same value from the RemoteConfigValue:'),
-              Text(remoteConfig.getValue('welcome').asString()),
+              Text(hRemoteConfig.getValue('welcome').asString()),
               const Text('Indicates at which source this value came from:'),
-              Text('${remoteConfig.getValue('welcome').source}'),
+              Text('${hRemoteConfig.getValue('welcome').source}'),
               const SizedBox(
                 height: 20,
               ),
               const Text('Time of last successful fetch:'),
-              Text('${remoteConfig.lastFetchTime}'),
+              Text('${hRemoteConfig.lastFetchTime}'),
               const Text('Status of the last fetch attempt:'),
-              Text('${remoteConfig.lastFetchStatus}'),
+              Text('${hRemoteConfig.lastFetchStatus}'),
             ],
           ),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
             // Using zero duration to force fetching from remote server.
-            await remoteConfig.setConfigSettings(RemoteConfigSettings(
+            await hRemoteConfig.setConfigSettings(RemoteConfigSettings(
               fetchTimeout: const Duration(seconds: 10),
               minimumFetchInterval: Duration.zero,
             ));
 
             try {
-              await remoteConfig.fetchAndActivate(throwError: true);
+              await hRemoteConfig.fetchAndActivate(throwError: true);
             } on PlatformException catch (exception) {
               // Fetch exception.
               if (kDebugMode) {
@@ -103,39 +139,4 @@ class WelcomeWidget extends AnimatedWidget {
           child: const Icon(Icons.refresh),
         ),
       );
-}
-
-///
-Future<RemoteConfig> setupRemoteConfig() async {
-  await Firebase.initializeApp(
-    options: const FirebaseOptions(
-        apiKey: 'AIzaSyAgUhHU8wSJgO5MVNy95tMT07NEjzMOfz0',
-        authDomain: 'react-native-firebase-testing.firebaseapp.com',
-        databaseURL: 'https://react-native-firebase-testing.firebaseio.com',
-        projectId: 'react-native-firebase-testing',
-        storageBucket: 'react-native-firebase-testing.appspot.com',
-        messagingSenderId: '448618578101',
-        appId: '1:448618578101:web:772d484dc9eb15e9ac3efc',
-        measurementId: 'G-0N1G9FLDZE'),
-  );
-
-  final RemoteConfig remoteConfig =
-      RemoteConfig(fetchTimeout: 10, minimumFetchInterval: 1);
-  // FirebaseRemoteConfig.instance;
-
-  await remoteConfig.initAsync();
-
-  // This does the same thing as above in the constructor.
-  await remoteConfig.setConfigSettings(RemoteConfigSettings(
-    fetchTimeout: const Duration(seconds: 10),
-    minimumFetchInterval: const Duration(hours: 1),
-  ));
-
-  await remoteConfig.setDefaults(<String, dynamic>{
-    'welcome': 'default welcome',
-    'hello': 'default hello',
-  });
-
-  RemoteConfigValue(null, ValueSource.valueStatic);
-  return remoteConfig;
 }

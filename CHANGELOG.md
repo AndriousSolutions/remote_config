@@ -1,5 +1,5 @@
 
-## 1.3.0+1
+## 1.3.0+2
  July 17, 2023
 - sdk: '>=2.18.0 <4.0.0'
 - class RemoteConfig with ChangeNotifier

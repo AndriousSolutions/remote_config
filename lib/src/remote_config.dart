@@ -178,7 +178,7 @@ class RemoteConfig with ChangeNotifier {
 
   /// Returns a decrypted String value from Firebase Remote Config.
   Future<String> getStringed(String param, [String? key]) async {
-    param = getString(param) ?? '';
+    param = getString(param);
     final string = await _crypto?.de(param, key) ?? '';
     if (_crypto?.hasError ?? false) {
       getError(_crypto?.getError());
@@ -279,16 +279,12 @@ class RemoteConfig with ChangeNotifier {
   void removeListener(VoidCallback listener) => super.removeListener(listener);
 
   /// Indicates if an error has occurred or not.
-  @Deprecated("Use 'hadError' property instead.")
   bool get hasError => _error != null;
-
-  /// Indicates if an error has occurred or not.
-  @Deprecated("Use 'hadError' property instead.")
-  bool get inError => _error != null;
-
-  /// Indicates if an error has occurred or not.
-  bool get hadError => _error != null;
   Object? _error;
+
+  /// Indicates if an error has occurred or not.
+  @Deprecated("Use 'hasError' property instead.")
+  bool get inError => _error != null;
 
   /// Returns the last error that may occurred. Records an error as well.
   Exception? getError([Object? error]) {
