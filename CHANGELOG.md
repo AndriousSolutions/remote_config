@@ -1,4 +1,8 @@
 
+## 1.4.0
+ December 01 2023
+- Updated package_info_plus: 
+
 ## 1.3.0+3
  July 17, 2023
 - sdk: '>=2.18.0 <4.0.0'

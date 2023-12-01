@@ -15,13 +15,13 @@ dependencies:
     sdk: flutter
 
   # https://pub.dev/packages/package_info_plus/
-  package_info_plus: ^4.0.0
+  package_info_plus: ^5.0.0
 
   # https://pub.dev/packages/firebase_core/
-  firebase_core: ^2.15.0
+  firebase_core: ^2.0.0
 
   # https://pub.dev/packages/firebase_remote_config
-  firebase_remote_config: ^4.2.0
+  firebase_remote_config: ^4.0.0
 
   # https://pub.dev/packages/encrypt/
   encrypt: ^5.0.0
