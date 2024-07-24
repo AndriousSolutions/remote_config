@@ -113,6 +113,7 @@ class WelcomeWidget extends AnimatedWidget {
           ),
         ),
         floatingActionButton: FloatingActionButton(
+          key: const Key('hRemoteConfigRefresh'),
           onPressed: () async {
             // Using zero duration to force fetching from remote server.
             await hRemoteConfig.setConfigSettings(RemoteConfigSettings(

@@ -1,4 +1,12 @@
 
+## 1.5.0
+ July 24, 2024
+- Update dependencies from
+  sdk: ">=2.7.0 <3.0.0"
+  firebase_core 2.24.0
+  firebase_remote_config 4.3.6
+  package_info_plus 5.0.1
+
 ## 1.4.0
  December 01 2023
 - Updated package_info_plus: 
