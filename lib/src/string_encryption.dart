@@ -1,4 +1,9 @@
-//
+// import 'package:flutter_string_encryption/flutter_string_encryption.dart'
+//     show PlatformStringCryptor;
+
+import 'package:encrypt/encrypt.dart';
+
+///
 /// Copyright (C) 2020 Andrious Solutions
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,13 +20,6 @@
 ///
 ///          Created  31 Mar 2020
 ///
-///
-
-// import 'package:flutter_string_encryption/flutter_string_encryption.dart'
-//     show PlatformStringCryptor;
-
-import 'package:encrypt/encrypt.dart';
-
 ///
 class StringCrypt {
   ///
